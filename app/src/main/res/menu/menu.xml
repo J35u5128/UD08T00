@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- Opción 2: Añadir un nuevo libro (preparado para el futuro) -->
+    <item
+        android:id="@+id/action_add_libro"
+        android:title="Añadir Libro" />
+
+    <!-- Opción 3: Borrar todos los datos (en el menú desplegable) -->
+    <item
+        android:id="@+id/action_delete_all"
+        android:title="Borrar Todo"
+        app:showAsAction="never" /> <!-- 'never' para que aparezca en el menú de 3 puntos -->
+</menu>
+
+
