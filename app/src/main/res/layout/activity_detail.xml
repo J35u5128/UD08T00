@@ -11,91 +11,113 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
-        <ImageView
-            android:id="@+id/ivDetailPortada"
-            android:layout_width="150dp"
-            android:layout_height="220dp"
-            android:scaleType="centerCrop"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="114dp"
-            tools:src="@drawable/don_quijote_de_la_mancha" />
-
         <TextView
             android:id="@+id/tvDetailTitulo"
             android:layout_width="205dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="68dp"
             android:textSize="22sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/ivDetailPortada"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="100dp"
             tools:text="Don Quijote de la Mancha" />
 
-        <TextView
-            android:id="@+id/tvDetailAutor"
-            android:layout_width="205dp"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            tools:layout_editor_absoluteX="146dp"
-            tools:text="Miguel de Cervantes" />
+        <ImageView
+            android:id="@+id/ivDetailPortada"
+            android:layout_width="150dp"
+            android:layout_height="220dp"
+            android:layout_marginTop="52dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.458"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvDetailTitulo"
+            tools:src="@drawable/don_quijote_de_la_mancha" />
 
         <TextView
             android:id="@+id/tvDetailGenero"
             android:layout_width="147dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="42dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="14dp"
+            app:layout_constraintBottom_toTopOf="@+id/tvDetailDescripcion"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.833"
             app:layout_constraintStart_toEndOf="@+id/tvDetailAnho"
-            tools:layout_editor_absoluteY="374dp"
+            app:layout_constraintTop_toBottomOf="@+id/ivDetailPortada"
             tools:text="Novela" />
 
         <TextView
             android:id="@+id/tvDetailGeneroLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="57dp"
+            android:layout_marginEnd="32dp"
             android:text="Autor:"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tvDetailAutor"
             app:layout_constraintTop_toBottomOf="@+id/tvDetailDescripcion"
-            tools:layout_editor_absoluteX="101dp" />
+            app:layout_constraintVertical_bias="1.0" />
 
         <TextView
             android:id="@+id/tvDetailAnhoLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="370dp"
+            android:layout_marginBottom="8dp"
             android:text="Año:"
             android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/tvDetailDescripcion"
             app:layout_constraintEnd_toStartOf="@+id/tvDetailAnho"
             app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="377dp" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.833" />
 
         <TextView
             android:id="@+id/tvDetailAnho"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="263dp"
+            android:layout_marginStart="33dp"
+            android:layout_marginTop="43dp"
+            android:layout_marginEnd="102dp"
             android:layout_marginBottom="13dp"
             app:layout_constraintBottom_toTopOf="@+id/tvDetailDescripcion"
-            app:layout_constraintTop_toTopOf="@+id/ivDetailPortada"
-            app:layout_constraintVertical_bias="0.0"
-            tools:layout_editor_absoluteX="74dp"
+            app:layout_constraintEnd_toStartOf="@+id/tvDetailGenero"
+            app:layout_constraintStart_toEndOf="@+id/tvDetailAnhoLabel"
+            app:layout_constraintTop_toBottomOf="@+id/ivDetailPortada"
+            app:layout_constraintVertical_bias="1.0"
             tools:text="1605" />
 
         <TextView
             android:id="@+id/tvDetailDescripcion"
-            android:layout_width="379dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="75dp"
             android:layout_marginBottom="27dp"
             android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@+id/tvDetailAutor"
             app:layout_constraintTop_toBottomOf="@+id/ivDetailPortada"
-            tools:layout_editor_absoluteX="14dp"
+            tools:layout_editor_absoluteX="6dp"
             tools:text="Las aventuras del hidalgo que pierde la cordura por leer libros de caballería y decide convertirse en caballero andante para deshacer entuertos y buscar fama." />
+
+        <TextView
+            android:id="@+id/tvDetailAutor"
+            android:layout_width="205dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="27dp"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvDetailDescripcion"
+            tools:layout_editor_absoluteX="152dp"
+            tools:text="Miguel de Cervantes" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

@@ -1,7 +1,7 @@
 package com.example.ud08t00.provider
 
 import com.example.ud08t00.model.Libro
-import android.R
+import com.example.ud08t00.R
 
 /**
  * Provee una lista estática de datos de libros para inicializar la BD o la lista inicial.

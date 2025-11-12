@@ -57,6 +57,17 @@ class LibroAdapter(
     }
 
     /**
+     * Elimina todos los libros de la lista visible.
+     */
+    fun eliminarTodosLosLibros() {
+        val itemCount = listaLibros.size
+        if (itemCount > 0) {
+            listaLibros.clear()
+            notifyItemRangeRemoved(0, itemCount)
+        }
+    }
+
+    /**
      * Edita el título de un libro en la lista visible.
      */
     fun editarTituloLibro(position: Int, nuevoTitulo: String) {

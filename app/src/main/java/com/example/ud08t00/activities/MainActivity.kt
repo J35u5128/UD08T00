@@ -1,4 +1,4 @@
-package com.example.ud08t00
+package com.example.ud08t00.activities
 
 import android.app.Activity
 import android.content.Intent
@@ -11,11 +11,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.example.ud08t00.activities.DetailActivity
-import com.example.ud08t00.activities.EditActivity
+import com.example.ud08t00.R
 import com.example.ud08t00.adapter.LibroAdapter
 import com.example.ud08t00.dao.LibroDAO
 import com.example.ud08t00.model.Libro
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var adapter: LibroAdapter
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var searchView: SearchView
+    private lateinit var fabDeleteAll: FloatingActionButton
 
     private val editLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
@@ -47,10 +48,10 @@ class MainActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.rvLibros)
         swipeRefreshLayout = findViewById(R.id.srlDatos)
         searchView = findViewById(R.id.searchView)
+        fabDeleteAll = findViewById(R.id.fab_delete_all)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        // **CORRECCIÓN CLAVE**: Se pasa una copia de la lista al adaptador.
         adapter = LibroAdapter(listaMaestraDeLibros.toMutableList()) { libro ->
             val intent = Intent(this, DetailActivity::class.java).apply {
                 putExtra("EXTRA_LIBRO", libro)
@@ -63,6 +64,21 @@ class MainActivity : AppCompatActivity() {
 
         swipeRefreshLayout.setOnRefreshListener { recargarDatos() }
         setupSearchView()
+
+        fabDeleteAll.setOnClickListener {
+            mostrarDialogoDeBorradoTotal()
+        }
+    }
+
+    private fun mostrarDialogoDeBorradoTotal() {
+        AlertDialog.Builder(this)
+            .setTitle("Eliminar Todo")
+            .setMessage("¿Estás seguro de que quieres eliminar todos los libros? Esta acción no se puede deshacer.")
+            .setPositiveButton("Aceptar") { _, _ ->
+                adapter.eliminarTodosLosLibros()
+            }
+            .setNegativeButton("Cancelar", null)
+            .show()
     }
 
     private fun recargarDatos() {
@@ -98,7 +114,6 @@ class MainActivity : AppCompatActivity() {
         val position = adapter.position_pulsada
         if (position == -1) return super.onContextItemSelected(item)
 
-        // **CORRECCIÓN CLAVE**: Se obtiene el libro desde el adaptador, no desde la lista maestra.
         val libroSeleccionado = adapter.getLibroAt(position) ?: return super.onContextItemSelected(item)
 
         return when (item.itemId) {
