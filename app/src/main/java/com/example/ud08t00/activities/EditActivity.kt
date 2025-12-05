@@ -15,24 +15,20 @@ class EditActivity : AppCompatActivity() {
         binding = ActivityEditBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Recuperar datos del Intent
         val tituloActual = intent.getStringExtra("EXTRA_TITULO")
         val imagenResId = intent.getIntExtra("EXTRA_IMAGEN_ID", 0)
 
-        // Mostrar los datos actuales
         binding.etEditTitulo.setText(tituloActual)
         if (imagenResId != 0) {
             Picasso.get().load(imagenResId).into(binding.ivEditPortada)
         }
         supportActionBar?.title = "Editando: $tituloActual"
 
-        // Configurar botón Cancelar
         binding.btnEditCancelar.setOnClickListener {
             setResult(RESULT_CANCELED) // Indica que no se hizo ningún cambio
             finish() // Cierra la actividad
         }
 
-        // Configurar botón Cambiar
         binding.btnEditCambiar.setOnClickListener {
             val nuevoTitulo = binding.etEditTitulo.text.toString()
             if (nuevoTitulo.isNotBlank()) {

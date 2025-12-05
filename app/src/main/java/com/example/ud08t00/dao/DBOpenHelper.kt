@@ -11,7 +11,6 @@ class DBOpenHelper private constructor(context: Context?) :
     SQLiteOpenHelper(context, LibroContract.NOMBRE_BD, null, LibroContract.VERSION) {
 
     override fun onCreate(db: SQLiteDatabase) {
-        // SQL para crear la tabla con todas las columnas
         val createTableSQL = """
             CREATE TABLE ${LibroContract.Companion.Entrada.TABLA} (
                 ${LibroContract.Companion.Entrada.IDCOL} INTEGER PRIMARY KEY,

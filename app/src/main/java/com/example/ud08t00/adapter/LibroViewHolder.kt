@@ -15,7 +15,6 @@ class LibroViewHolder(private val binding: ItemLibroBinding) :
     private lateinit var libro: Libro
 
     init {
-        // Registra la vista para el menú contextual
         itemView.setOnCreateContextMenuListener(this)
     }
 
@@ -32,9 +31,7 @@ class LibroViewHolder(private val binding: ItemLibroBinding) :
         v: View?,
         menuInfo: ContextMenu.ContextMenuInfo?
     ) {
-        // Pone el título del libro en la cabecera del menú
         menu.setHeaderTitle(libro.titulo)
-        // Infla el menú con las opciones "Editar" y "Eliminar"
         val inflater = MenuInflater(v?.context)
         inflater.inflate(R.menu.libro_context_menu, menu)
     }

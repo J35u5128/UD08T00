@@ -33,7 +33,6 @@ class LibroDAO(context: Context) {
                 listaLibros.add(libro)
             }
         }
-        // No cierres la base de datos aquí, el sistema la gestiona.
         return listaLibros
     }
 }

@@ -8,11 +8,10 @@ import com.example.ud08t00.databinding.ItemLibroBinding
 import com.example.ud08t00.model.Libro
 
 class LibroAdapter(
-    private var listaLibros: MutableList<Libro>, // Esta será la lista que el adapter muestra y filtra
+    private var listaLibros: MutableList<Libro>,
     private val onClickListener: (Libro) -> Unit
 ) : RecyclerView.Adapter<LibroViewHolder>() {
 
-    // Variable para guardar la posición del ítem presionado en la lista visible
     var position_pulsada: Int = -1
         private set
 
@@ -26,29 +25,20 @@ class LibroAdapter(
         val libro = listaLibros[position]
         holder.render(libro, onClickListener)
 
-        // Guardar la posición cuando se hace una pulsación larga
         holder.itemView.setOnLongClickListener {
             position_pulsada = holder.adapterPosition
-            false // Devuelve false para que el menú contextual se muestre
+            false
         }
     }
 
     override fun getItemCount(): Int = listaLibros.size
 
-    // --- MÉTODOS AÑADIDOS Y CORREGIDOS ---
-
-    /**
-     * Actualiza la lista que muestra el adaptador. Esencial para el buscador y la recarga.
-     */
     fun actualizarLista(nuevaLista: List<Libro>) {
         listaLibros.clear()
         listaLibros.addAll(nuevaLista)
-        notifyDataSetChanged() // Notifica al RecyclerView que los datos cambiaron masivamente
+        notifyDataSetChanged()
     }
 
-    /**
-     * Elimina un libro de la lista visible.
-     */
     fun eliminarLibro(position: Int) {
         if (position in 0 until listaLibros.size) {
             listaLibros.removeAt(position)
@@ -56,9 +46,6 @@ class LibroAdapter(
         }
     }
 
-    /**
-     * Elimina todos los libros de la lista visible.
-     */
     fun eliminarTodosLosLibros() {
         val itemCount = listaLibros.size
         if (itemCount > 0) {
@@ -67,9 +54,6 @@ class LibroAdapter(
         }
     }
 
-    /**
-     * Edita el título de un libro en la lista visible.
-     */
     fun editarTituloLibro(position: Int, nuevoTitulo: String) {
         if (position in 0 until listaLibros.size) {
             val libroActual = listaLibros[position]
@@ -79,10 +63,6 @@ class LibroAdapter(
         }
     }
 
-    /**
-     * Devuelve el objeto Libro en una posición específica de la lista visible.
-     * Crucial para que el menú contextual funcione con la lista filtrada.
-     */
     fun getLibroAt(position: Int): Libro? {
         return if (position in 0 until listaLibros.size) {
             listaLibros[position]

@@ -13,11 +13,9 @@ class DetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // 1. Infla el layout usando ViewBinding
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // 2. Recupera el objeto Libro del Intent
         val libro = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent.getSerializableExtra("EXTRA_LIBRO", Libro::class.java)
         } else {
@@ -25,19 +23,15 @@ class DetailActivity : AppCompatActivity() {
             intent.getSerializableExtra("EXTRA_LIBRO") as? Libro
         }
 
-        // 3. Si el libro no es nulo, rellena las vistas
         if (libro != null) {
-            // Usamos Picasso para cargar la imagen de la portada
             Picasso.get().load(libro.imagenResId).into(binding.ivDetailPortada)
 
-            // Rellenamos los TextViews
             binding.tvDetailTitulo.text = libro.titulo
             binding.tvDetailAutor.text = libro.autor
             binding.tvDetailAnho.text = libro.anho.toString()
             binding.tvDetailGenero.text = libro.genero
             binding.tvDetailDescripcion.text = libro.sinopsis
 
-            // Opcional: Ponemos el título del libro en la barra de la actividad
             supportActionBar?.title = libro.titulo
         }
     }

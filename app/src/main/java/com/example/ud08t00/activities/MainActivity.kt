@@ -3,11 +3,13 @@ package com.example.ud08t00.activities
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
-import android.widget.SearchView
+import androidx.appcompat.widget.SearchView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -15,7 +17,6 @@ import com.example.ud08t00.R
 import com.example.ud08t00.adapter.LibroAdapter
 import com.example.ud08t00.dao.LibroDAO
 import com.example.ud08t00.model.Libro
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
@@ -25,8 +26,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var listaMaestraDeLibros: MutableList<Libro>
     private lateinit var adapter: LibroAdapter
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
-    private lateinit var searchView: SearchView
-    private lateinit var fabDeleteAll: FloatingActionButton
+    private var searchView: SearchView? = null
 
     private val editLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
@@ -42,13 +42,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
         libroDAO = LibroDAO(this)
         listaMaestraDeLibros = libroDAO.getAllLibros()
 
         recyclerView = findViewById(R.id.rvLibros)
         swipeRefreshLayout = findViewById(R.id.srlDatos)
-        searchView = findViewById(R.id.searchView)
-        fabDeleteAll = findViewById(R.id.fab_delete_all)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
 
@@ -63,10 +64,26 @@ class MainActivity : AppCompatActivity() {
         registerForContextMenu(recyclerView)
 
         swipeRefreshLayout.setOnRefreshListener { recargarDatos() }
-        setupSearchView()
+    }
 
-        fabDeleteAll.setOnClickListener {
-            mostrarDialogoDeBorradoTotal()
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        
+        val searchItem = menu.findItem(R.id.action_search)
+        searchView = searchItem.actionView as SearchView
+        
+        setupSearchView()
+        
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_delete_all -> {
+                mostrarDialogoDeBorradoTotal()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 
@@ -84,13 +101,16 @@ class MainActivity : AppCompatActivity() {
     private fun recargarDatos() {
         listaMaestraDeLibros = libroDAO.getAllLibros()
         adapter.actualizarLista(listaMaestraDeLibros)
-        searchView.setQuery("", false)
-        searchView.clearFocus()
+        
+        searchView?.setQuery("", false)
+        searchView?.clearFocus()
+        
         swipeRefreshLayout.isRefreshing = false
     }
 
     private fun setupSearchView() {
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        searchView?.queryHint = "Buscar libro..."
+        searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean = false
 
             override fun onQueryTextChange(newText: String?): Boolean {

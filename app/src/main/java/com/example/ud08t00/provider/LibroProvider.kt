@@ -3,9 +3,6 @@ package com.example.ud08t00.provider
 import com.example.ud08t00.model.Libro
 import com.example.ud08t00.R
 
-/**
- * Provee una lista estática de datos de libros para inicializar la BD o la lista inicial.
- */
 class LibroProvider {
     companion object {
         fun cargarLista(): MutableList<Libro> {
